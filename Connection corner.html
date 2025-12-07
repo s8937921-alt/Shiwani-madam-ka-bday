@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connection Corner</title>
+
+<style>
+    body {
+        font-family: "Poppins", sans-serif;
+        background: #ffe9f2;
+        margin: 0;
+        padding: 0;
+        color: #4a4a4a;
+    }
+
+    h1 {
+        text-align: center;
+        padding: 30px 0;
+        font-size: 2.2rem;
+        color: #d64582;
+        letter-spacing: 1px;
+        font-weight: 600;
+    }
+
+    /* Main section card */
+    .section {
+        width: 90%;
+        max-width: 750px;
+        background: white;
+        margin: 25px auto;
+        padding: 25px;
+        border-radius: 14px;
+        box-shadow: 0px 6px 16px rgba(0,0,0,0.12);
+        border-left: 5px solid #ff9ec6;
+    }
+
+    .section h2 {
+        margin-top: 0;
+        color: #d64582;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    /* Message Wall Style */
+    .note {
+        background: #ffe4ef;
+        padding: 15px;
+        border-radius: 10px;
+        margin: 12px 0;
+        box-shadow: 0px 4px 10px rgba(0,0,0,0.08);
+        border-left: 4px solid #d64582;
+    }
+
+    .note p {
+        margin: 0;
+        line-height: 1.6;
+        font-size: 0.95rem;
+    }
+
+    /* Input boxes */
+    .input-box {
+        width: 100%;
+        padding: 12px;
+        margin: 8px 0 15px 0;
+        border: 1.5px solid #ffb3cf;
+        border-radius: 10px;
+        font-size: 0.95rem;
+        background: #fff5fa;
+    }
+
+    /* Submit button */
+    #submitBtn {
+        background: #d64582;
+        color: white;
+        padding: 12px 18px;
+        border-radius: 10px;
+        display: block;
+        border: none;
+        margin-top: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        letter-spacing: 0.5px;
+    }
+
+    #submitBtn:hover {
+        background: #c23571;
+    }
+
+    /* Q&A display */
+    .qa-item {
+        margin-bottom: 20px;
+    }
+
+    .question {
+        font-weight: 600;
+        color: #d64582;
+        font-size: 1.05rem;
+    }
+
+    .answer {
+        background: #ffe4ef;
+        padding: 12px;
+        border-radius: 10px;
+        margin-top: 6px;
+        font-size: 0.93rem;
+    }
+
+    /* Signature box */
+    .signature-box {
+        text-align: center;
+        padding: 30px 20px;
+        margin-top: 40px;
+        background: #ffe4ef;
+        border-radius: 14px;
+        border: 2px dashed #ff9ec6;
+    }
+
+    .signature-box h3 {
+        color: #d64582;
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+    }
+
+    .line {
+        width: 120px;
+        height: 2px;
+        background: #d64582;
+        margin: 8px auto 20px;
+        border-radius: 2px;
+    }
+
+    .names {
+        font-size: 1rem;
+        letter-spacing: 1px;
+        color: #4a4a4a;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>Connection Corner</h1>
+
+<!-- SECTION 1: Message Wall -->
+<div class="section">
+    <h2>Message Wall</h2>
+
+    <div class="note">
+        <p>This friendship feels like home—safe, warm, and real.</p>
+    </div>
+
+    <div class="note">
+        <p>You make life softer in the most effortless way.</p>
+    </div>
+
+    <div class="note">
+        <p>Even on the dullest days, you bring a quiet kind of comfort.</p>
+    </div>
+
+    <div class="note">
+        <p>Thank you for being someone I can trust without hesitation.</p>
+    </div>
+</div>
+
+
+<!-- SECTION 2: Interactive Review / Q&A -->
+<div class="section">
+    <h2>Friendship Q&A Review</h2>
+
+    <p style="font-size: 0.9rem; color:#777; margin-bottom: 20px;">
+        Write your own answers below and they will appear on the page.
+    </p>
+
+    <!-- Q&A Form -->
+    <div id="qa-form">
+
+        <label class="question">Who is more talkative?</label>
+        <input type="text" class="input-box" id="q1">
+
+        <label class="question">Who apologises first?</label>
+        <input type="text" class="input-box" id="q2">
+
+        <label class="question">Who laughs at the wrong moments?</label>
+        <input type="text" class="input-box" id="q3">
+
+        <label class="question">Who remembers tiny details?</label>
+        <input type="text" class="input-box" id="q4">
+
+        <label class="question">First impression of each other?</label>
+        <input type="text" class="input-box" id="q5">
+
+        <button id="submitBtn">Save Answers</button>
+    </div>
+
+    <hr style="border: none; height: 1px; background: #ffd0e4; margin: 25px 0;">
+
+    <!-- Display Area -->
+    <div id="qa-display">
+        <h2 style="margin-bottom: 15px;">Your Answers</h2>
+
+        <div class="qa-item">
+            <div class="question">Who is more talkative?</div>
+            <div class="answer" id="a1">Not answered yet.</div>
+        </div>
+
+        <div class="qa-item">
+            <div class="question">Who apologises first?</div>
+            <div class="answer" id="a2">Not answered yet.</div>
+        </div>
+
+        <div class="qa-item">
+            <div class="question">Who laughs at the wrong moments?</div>
+            <div class="answer" id="a3">Not answered yet.</div>
+        </div>
+
+        <div class="qa-item">
+            <div class="question">Who remembers tiny details?</div>
+            <div class="answer" id="a4">Not answered yet.</div>
+        </div>
+
+        <div class="qa-item">
+            <div class="question">First impression of each other?</div>
+            <div class="answer" id="a5">Not answered yet.</div>
+        </div>
+    </div>
+</div>
+
+
+<!-- SECTION 3: Signature Box -->
+<div class="section signature-box">
+    <h3>Our Corner</h3>
+    <div class="line"></div>
+    <div class="names">Sneha & Bestie</div>
+    <p style="margin-top: 15px; font-size: 0.95rem; color:#4a4a4a;">
+        A quiet, gentle connection that stays.
+    </p>
+</div>
+
+
+<script>
+    document.getElementById("submitBtn").addEventListener("click", function () {
+        document.getElementById("a1").innerText = document.getElementById("q1").value || "Not answered yet.";
+        document.getElementById("a2").innerText = document.getElementById("q2").value || "Not answered yet.";
+        document.getElementById("a3").innerText = document.getElementById("q3").value || "Not answered yet.";
+        document.getElementById("a4").innerText = document.getElementById("q4").value || "Not answered yet.";
+        document.getElementById("a5").innerText = document.getElementById("q5").value || "Not answered yet.";
+    });
+</script>
+
+</body>
+</html>

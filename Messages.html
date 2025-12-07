@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Catch-The-Hearts Game</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #ff9acb, #ffe0f2);
+      font-family: Poppins, sans-serif;
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    #gameArea {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #player {
+      width: 60px;
+      height: 60px;
+      background: #ff007f;
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      bottom: 40px;
+      transform: translateX(-50%);
+      box-shadow: 0 0 15px rgba(255, 0, 100, 0.5);
+      transition: left 0.2s ease;
+    }
+
+    .heart {
+      width: 30px;
+      height: 30px;
+      background: #ff007f;
+      position: absolute;
+      top: -50px;
+      transform: rotate(45deg);
+    }
+    .heart:before, .heart:after {
+      content: "";
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: #ff007f;
+      border-radius: 50%;
+    }
+    .heart:before { top: -15px; left: 0; }
+    .heart:after { top: 0; left: -15px; }
+
+    #scoreBox {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 26px;
+      color: #b0005c;
+      font-weight: bold;
+    }
+
+    #startBtn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 18px 40px;
+      background: #ff4f9a;
+      border: none;
+      border-radius: 30px;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #startBtn:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+      background: #ff76b5;
+    }
+
+    #finalMessage {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      font-size: 34px;
+      text-align: center;
+      color: #ff007f;
+      display: none;
+      width: 80%;
+      font-weight: 600;
+      padding: 30px;
+      background: rgba(255, 210, 235, 0.95);
+      border-radius: 22px;
+      box-shadow: 0 0 35px rgba(255, 0, 130, 0.5);
+      backdrop-filter: blur(10px);
+      animation: popUp 0.7s ease forwards;
+    }
+
+    @keyframes popUp {
+      0% { opacity: 0; transform: translate(-50%, -60%) scale(0.5); }
+      80% { opacity: 1; transform: translate(-50%, -48%) scale(1.05); }
+      100% { transform: translate(-50%, -50%) scale(1); }
+    }
+
+    #playAgainBtn {
+      margin-top: 20px;
+      padding: 12px 30px;
+      background: #ff4f9a;
+      border: none;
+      border-radius: 25px;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    #playAgainBtn:hover {
+      background: #ff76b5;
+      transform: scale(1.1);
+    }
+
+    /* Gift Box in bottom-right corner with animation */
+    #giftBox {
+      width: 60px;
+      height: 60px;
+      background: #ff007f;
+      border-radius: 10px;
+      position: absolute;
+      bottom: 100px;      /* move above the player */
+      right: 50px;        /* slightly inward from right */
+      transform: scale(0); 
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 0 25px rgba(255,0,120,0.8);
+      animation: pulseRotate 1s infinite;
+    }
+
+    @keyframes pulseRotate {
+      0% { transform: scale(0.8) rotate(0deg); }
+      50% { transform: scale(1.1) rotate(15deg); }
+      100% { transform: scale(0.8) rotate(-15deg); }
+    }
+
+    /* Heartfelt Message */
+    #heartMsg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      font-size: 32px;
+      text-align: center;
+      color: #ff007f;
+      display: none;
+      width: 80%;
+      font-weight: 600;
+      padding: 30px;
+      background: rgba(255, 210, 235, 0.95);
+      border-radius: 22px;
+      box-shadow: 0 0 35px rgba(255, 0, 130, 0.5);
+      backdrop-filter: blur(10px);
+      animation: popUp 0.7s ease forwards;
+    }
+
+    /* Confetti */
+    .confetti {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #ff007f;
+      top: 0;
+      animation: fall 3s linear infinite;
+      opacity: 0.8;
+      border-radius: 50%;
+    }
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(800px) rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+<div id="gameArea">
+  <div id="player"></div>
+  <div id="scoreBox">Score: 0</div>
+  <button id="startBtn">Start Game</button>
+  <div id="finalMessage"></div>
+  <div id="giftBox"></div>
+  <div id="heartMsg">Happy Birthday!<br>Hope you liked it pehli baar itna bara kuchh banaya h html se just for you because u deserve it meri jaan jaisi gai waisi hi rehna and love you a lottttttttttt........</div>
+</div>
+
+<script>
+  const player = document.getElementById("player");
+  const gameArea = document.getElementById("gameArea");
+  const startBtn = document.getElementById("startBtn");
+  const finalMessage = document.getElementById("finalMessage");
+  const scoreBox = document.getElementById("scoreBox");
+  const giftBox = document.getElementById("giftBox");
+  const heartMsg = document.getElementById("heartMsg");
+
+  let score = 0;
+  let playing = false;
+  let dropInterval;
+  let gameInterval;
+
+  document.addEventListener("mousemove", e => {
+    if (playing) {
+      let x = e.clientX;
+      player.style.left = x - 30 + "px";
+    }
+  });
+
+  function spawnHeart() {
+    if (!playing) return;
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.style.left = Math.random() * (window.innerWidth - 30) + "px";
+    gameArea.appendChild(heart);
+
+    let fall = setInterval(() => {
+      let topPos = parseInt(window.getComputedStyle(heart).top);
+      heart.style.top = topPos + 5 + "px";
+
+      if (isColliding(heart, player)) {
+        score++;
+        scoreBox.textContent = "Score: " + score;
+        heart.remove();
+        clearInterval(fall);
+      }
+
+      if (topPos > window.innerHeight) {
+        heart.remove();
+        clearInterval(fall);
+      }
+    }, 20);
+  }
+
+  function isColliding(a, b) {
+    const rect1 = a.getBoundingClientRect();
+    const rect2 = b.getBoundingClientRect();
+    return !(rect1.bottom < rect2.top || rect1.top > rect2.bottom || rect1.right < rect2.left || rect1.left > rect2.right);
+  }
+
+  function startGame() {
+    score = 0;
+    playing = true;
+    scoreBox.textContent = "Score: 0";
+    startBtn.style.display = "none";
+    finalMessage.style.display = "none";
+    giftBox.style.display = "none";
+    heartMsg.style.display = "none";
+
+    dropInterval = setInterval(spawnHeart, 800);
+    gameInterval = setTimeout(endGame, 20000);
+  }
+
+  function endGame() {
+    playing = false;
+    clearInterval(dropInterval);
+    document.querySelectorAll('.heart').forEach(h => h.remove());
+
+    let message = "";
+    if (score <= 5) message = "Ik You did your best! but you need to do better I'm dissapointed ";
+    else if (score <= 15) message = "noob h tu abhi bhi try again 15 ke baad ek gift hai!";
+    else message = "Amazing! aur aise hi ap sabke dil jit leti hain right bottom me kuchh gift h apke liye please click!";
+
+    finalMessage.style.display = "block";
+    finalMessage.innerHTML = `
+      <div>Score: ${score}<br><br>${message}</div>
+      <button id="playAgainBtn">Play Again</button>
+    `;
+    document.getElementById("playAgainBtn").addEventListener("click", startGame);
+
+    // Show gift box if score is between 15-20
+    if (score >= 15 && score <= 20) {
+      giftBox.style.display = 'block';
+    }
+  }
+
+  giftBox.onclick = () => {
+    giftBox.style.display = 'none';
+    heartMsg.style.display = 'block';
+    createConfetti();
+  };
+
+  function createConfetti() {
+    for (let i = 0; i < 100; i++) {
+      const confetti = document.createElement('div');
+      confetti.classList.add('confetti');
+      confetti.style.left = Math.random() * window.innerWidth + 'px';
+      confetti.style.background = `hsl(${Math.random()*360}, 100%, 70%)`;
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 3000);
+    }
+  }
+
+  startBtn.addEventListener("click", startGame);
+</script>
+
+</body>
+</html>

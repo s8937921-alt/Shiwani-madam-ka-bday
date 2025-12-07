@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mood Videos</title>
+<style>
+  :root{
+    --bg: #fff0f6;
+    --card: #ffffff;
+    --accent: #d64582;
+    --line: #ffccd9;
+    --muted: #6b6b6b;
+  }
+
+  body{
+    margin:0;
+    font-family: "Poppins", sans-serif;
+    background: var(--bg);
+    color: #333;
+  }
+
+  header{
+    text-align:center;
+    padding:28px 16px;
+  }
+
+  header h1{
+    margin:0;
+    color: var(--accent);
+    font-size:2rem;
+    letter-spacing:0.6px;
+    font-weight:600;
+  }
+
+  .container{
+    width:92%;
+    max-width:1000px;
+    margin: 18px auto 60px;
+  }
+
+  /* search */
+  .controls{
+    display:flex;
+    gap:12px;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+  }
+
+  .search{
+    flex:1;
+  }
+
+  .search input{
+    width:100%;
+    padding:12px 14px;
+    border-radius:10px;
+    border:1.5px solid var(--line);
+    background:#fff7fb;
+    outline:none;
+    font-size:0.95rem;
+  }
+
+  /* layout grid */
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap:18px;
+  }
+
+  .mood-card{
+    background: var(--card);
+    border-radius:12px;
+    padding:16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    border-left:5px solid var(--line);
+    position:relative;
+  }
+
+  .mood-card h3{
+    margin:0 0 8px 0;
+    color:var(--accent);
+    font-size:1.05rem;
+  }
+
+  .mood-card p.desc{
+    margin:0 0 12px 0;
+    color:var(--muted);
+    font-size:0.92rem;
+  }
+
+  .links {
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    margin-bottom:12px;
+  }
+
+  .links a{
+    text-decoration:none;
+    background:#fff5fa;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #ffd7e8;
+    color:#3b1f2b;
+    font-size:0.95rem;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+  }
+
+  .links a:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(214,69,130,0.12);
+  }
+
+  .card-actions{
+    display:flex;
+    gap:10px;
+    justify-content:flex-end;
+    align-items:center;
+  }
+
+  .btn{
+    padding:9px 12px;
+    border-radius:9px;
+    border:none;
+    cursor:pointer;
+    font-size:0.95rem;
+  }
+
+  .btn-open{
+    background:var(--accent);
+    color:white;
+  }
+
+  .btn-openall{
+    background:#ff9ec6;
+    color:white;
+  }
+
+  footer{
+    text-align:center;
+    margin:36px 0 80px;
+    color:var(--muted);
+    font-size:0.9rem;
+  }
+
+  @media (max-width:420px){
+    header h1{font-size:1.4rem}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Mood Videos</h1>
+  <div style="font-size:0.95rem;color:#6b6b6b;margin-top:6px">
+    Choose a mood and open videos to match how you feel
+  </div>
+</header>
+
+<div class="container">
+  <div class="controls">
+    <div class="search">
+      <input id="filterInput" placeholder="Search moods or video titles (e.g., happy, sad, chill)"/>
+    </div>
+  </div>
+
+  <div class="grid" id="moodGrid">
+
+    <!-- Happy -->
+    <div class="mood-card" data-tags="birthday">
+      <h3>Open on your bday</h3>
+      <p class="desc">enjoy your day!...</p>
+
+      <div class="links">
+        <a href="https://youtu.be/Z0778s7i6iw?si=pBxZG2FCvX_bUcKS" target="_blank" rel="noopener">my video for you</a>
+        <a href="https://youtu.be/UbxNuXhPsew?si=DmJJJiTNn0sx9ANZ"target="_blank" rel="noopener">meanindful bday</a>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-openall" onclick="openAll(this)">Open all</button>
+      </div>
+    </div>
+
+    <!-- Sad -->
+    <div class="mood-card" data-tags="happy upbeat joyful">
+      <h3>Open when you are happy</h3>
+      <p class="desc">share your happiness ....</p>
+
+      <div class="links">
+        <a href="https://youtu.be/6-Qn8MivTTs?si=CUBPHm9nypwiyCQg" target="_blank" rel="noopener">my video for you</a>
+        <a href="https://youtu.be/9hfsBgavsmc?feature=shared" target="_blank" rel="noopener">If you are happy and u know it</a>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-openall" onclick="openAll(this)">Open all</button>
+      </div>
+    </div>
+
+    <!-- Chill -->
+    <div class="mood-card" data-tags="sad tear calm">
+      <h3>Open when you are sad</h3>
+      <p class="desc">Soft careful messages.</p>
+
+      <div class="links">
+        <a href="https://youtu.be/W_aFhC3Wcf0?si=pRHT6YAHGGE3VCZe" target="_blank" rel="noopener">small msg from me</a>
+        <a href="https://youtu.be/IcAV5qiko8M?si=e-S9DqLQ-nFsQZdV" target="_blank" rel="noopener">stand up comedy</a>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-openall" onclick="openAll(this)">Open all</button>
+      </div>
+    </div>
+
+    <!-- Motivated -->
+    <div class="mood-card" data-tags="appriciation tareef barai">
+      <h3>Open when you feel unappriciated</h3>
+      <p class="desc">app ki tareef ke kuchh afsane.</p>
+
+      <div class="links">
+        <a href="https://youtu.be/n4KReRcXCP4?si=h-wgdL2_lTWUMwA0" target="_blank" rel="noopener">who you are</a></a>
+        <a href="https://youtu.be/bTdMWHLT03Y?si=oVsovmuBbRqXoFj_" target="_blank" rel="noopener">sometjing that you should do</a>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-openall" onclick="openAll(this)">Open all</button>
+      </div>
+    </div>
+</div>
+
+<footer>
+  Tip: To replace a video, right-click the link, choose "Edit", then paste any YouTube URL. If you'd like, I can prefill this with your favourite videos — tell me the exact YouTube links.
+</footer>
+
+<script>
+  // Filter moods by search
+  const filterInput = document.getElementById('filterInput');
+  const moodGrid = document.getElementById('moodGrid');
+
+  filterInput.addEventListener('input', function () {
+    const q = this.value.trim().toLowerCase();
+    const cards = moodGrid.querySelectorAll('.mood-card');
+    cards.forEach(card => {
+      const tags = card.getAttribute('data-tags') || '';
+      const title = card.querySelector('h3').innerText.toLowerCase();
+      // also check link texts
+      const linkTexts = Array.from(card.querySelectorAll('.links a')).map(a => a.innerText.toLowerCase()).join(' ');
+      if (!q || tags.includes(q) || title.includes(q) || linkTexts.includes(q)) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+
+  // Open all links in a card (may be blocked by popup blocker if many tabs)
+  function openAll(buttonEl) {
+    const card = buttonEl.closest('.mood-card');
+    const links = Array.from(card.querySelectorAll('.links a'));
+    if (!links.length) return;
+    // confirm if many links
+    if (links.length > 3) {
+      const ok = confirm('This will open ' + links.length + ' tabs. Continue?');
+      if (!ok) return;
+    }
+    links.forEach((a) => {
+      // open in new tab; popup blockers could block multiple opens
+      window.open(a.href, '_blank', 'noopener');
+    });
+  }
+
+  // Optional: keyboard shortcut "/" to focus search
+  document.addEventListener('keydown', (e) => {
+    if (e.key === '/') {
+      const el = document.getElementById('filterInput');
+      if (document.activeElement !== el) {
+        e.preventDefault();
+        el.focus();
+      }
+    }
+  });
+</script>
+</body>
+</html>
